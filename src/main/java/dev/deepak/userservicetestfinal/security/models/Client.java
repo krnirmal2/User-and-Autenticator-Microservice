@@ -1,142 +1,147 @@
 package dev.deepak.userservicetestfinal.security.models;
 
-import java.time.Instant;
-
 import jakarta.persistence.*;
+import java.time.Instant;
 
 @Entity
 @Table(name = "`client`")
 public class Client {
-    @Id
-    private String id;
-    private String clientId;
-    private Instant clientIdIssuedAt;
-    private String clientSecret;
-    private Instant clientSecretExpiresAt;
-    private String clientName;
-    @Column(length = 1000)
-    @Lob
-    private String clientAuthenticationMethods;
-    @Column(length = 1000)
-    @Lob
-    private String authorizationGrantTypes;
-    @Column(length = 1000)
-    @Lob
-    private String redirectUris;
-    @Column(length = 1000)
-    @Lob
-    private String postLogoutRedirectUris;
-    @Column(length = 1000)
-    @Lob
-    private String scopes;
-    @Column(length = 2000)
-    @Lob
-    private String clientSettings;
-    @Column(length = 2000)
-    @Lob
-    private String tokenSettings;
+  @Id private String id;
+  private String clientId;
+  private Instant clientIdIssuedAt;
+  private String clientSecret;
+  private Instant clientSecretExpiresAt;
+  private String clientName;
 
-    public String getId() {
-        return id;
-    }
+  @Column(length = 1000)
+  @Lob
+  private String clientAuthenticationMethods;
 
-    public void setId(String id) {
-        this.id = id;
-    }
+  @Column(length = 1000)
+  @Lob
+  private String authorizationGrantTypes;
 
-    public String getClientId() {
-        return clientId;
-    }
+  @Column(length = 1000)
+  @Lob
+  private String redirectUris;
 
-    public void setClientId(String clientId) {
-        this.clientId = clientId;
-    }
+  @Column(length = 1000)
+  @Lob
+  private String postLogoutRedirectUris;
 
-    public Instant getClientIdIssuedAt() {
-        return clientIdIssuedAt;
-    }
+  @Column(length = 1000)
+  @Lob
+  private String scopes;
 
-    public void setClientIdIssuedAt(Instant clientIdIssuedAt) {
-        this.clientIdIssuedAt = clientIdIssuedAt;
-    }
+  @Column(length = 2000)
+  @Lob
+  private String clientSettings;
 
-    public String getClientSecret() {
-        return clientSecret;
-    }
+  @Column(length = 2000)
+  @Lob
+  private String tokenSettings;
 
-    public void setClientSecret(String clientSecret) {
-        this.clientSecret = clientSecret;
-    }
+  public String getId() {
+    return id;
+  }
 
-    public Instant getClientSecretExpiresAt() {
-        return clientSecretExpiresAt;
-    }
+  public void setId(String id) {
+    this.id = id;
+  }
 
-    public void setClientSecretExpiresAt(Instant clientSecretExpiresAt) {
-        this.clientSecretExpiresAt = clientSecretExpiresAt;
-    }
+  public String getClientId() {
+    return clientId;
+  }
 
-    public String getClientName() {
-        return clientName;
-    }
+  public void setClientId(String clientId) {
+    this.clientId = clientId;
+  }
 
-    public void setClientName(String clientName) {
-        this.clientName = clientName;
-    }
+  public Instant getClientIdIssuedAt() {
+    return clientIdIssuedAt;
+  }
 
-    public String getClientAuthenticationMethods() {
-        return clientAuthenticationMethods;
-    }
+  public void setClientIdIssuedAt(Instant clientIdIssuedAt) {
+    this.clientIdIssuedAt = clientIdIssuedAt;
+  }
 
-    public void setClientAuthenticationMethods(String clientAuthenticationMethods) {
-        this.clientAuthenticationMethods = clientAuthenticationMethods;
-    }
+  public String getClientSecret() {
+    return clientSecret;
+  }
 
-    public String getAuthorizationGrantTypes() {
-        return authorizationGrantTypes;
-    }
+  public void setClientSecret(String clientSecret) {
+    this.clientSecret = clientSecret;
+  }
 
-    public void setAuthorizationGrantTypes(String authorizationGrantTypes) {
-        this.authorizationGrantTypes = authorizationGrantTypes;
-    }
+  public Instant getClientSecretExpiresAt() {
+    return clientSecretExpiresAt;
+  }
 
-    public String getRedirectUris() {
-        return redirectUris;
-    }
+  public void setClientSecretExpiresAt(Instant clientSecretExpiresAt) {
+    this.clientSecretExpiresAt = clientSecretExpiresAt;
+  }
 
-    public void setRedirectUris(String redirectUris) {
-        this.redirectUris = redirectUris;
-    }
+  public String getClientName() {
+    return clientName;
+  }
 
-    public String getPostLogoutRedirectUris() {
-        return this.postLogoutRedirectUris;
-    }
+  public void setClientName(String clientName) {
+    this.clientName = clientName;
+  }
 
-    public void setPostLogoutRedirectUris(String postLogoutRedirectUris) {
-        this.postLogoutRedirectUris = postLogoutRedirectUris;
-    }
+  public String getClientAuthenticationMethods() {
+    return clientAuthenticationMethods;
+  }
 
-    public String getScopes() {
-        return scopes;
-    }
+  public void setClientAuthenticationMethods(String clientAuthenticationMethods) {
+    this.clientAuthenticationMethods = clientAuthenticationMethods;
+  }
 
-    public void setScopes(String scopes) {
-        this.scopes = scopes;
-    }
+  public String getAuthorizationGrantTypes() {
+    return authorizationGrantTypes;
+  }
 
-    public String getClientSettings() {
-        return clientSettings;
-    }
+  public void setAuthorizationGrantTypes(String authorizationGrantTypes) {
+    this.authorizationGrantTypes = authorizationGrantTypes;
+  }
 
-    public void setClientSettings(String clientSettings) {
-        this.clientSettings = clientSettings;
-    }
+  public String getRedirectUris() {
+    return redirectUris;
+  }
 
-    public String getTokenSettings() {
-        return tokenSettings;
-    }
+  public void setRedirectUris(String redirectUris) {
+    this.redirectUris = redirectUris;
+  }
 
-    public void setTokenSettings(String tokenSettings) {
-        this.tokenSettings = tokenSettings;
-    }
+  public String getPostLogoutRedirectUris() {
+    return this.postLogoutRedirectUris;
+  }
+
+  public void setPostLogoutRedirectUris(String postLogoutRedirectUris) {
+    this.postLogoutRedirectUris = postLogoutRedirectUris;
+  }
+
+  public String getScopes() {
+    return scopes;
+  }
+
+  public void setScopes(String scopes) {
+    this.scopes = scopes;
+  }
+
+  public String getClientSettings() {
+    return clientSettings;
+  }
+
+  public void setClientSettings(String clientSettings) {
+    this.clientSettings = clientSettings;
+  }
+
+  public String getTokenSettings() {
+    return tokenSettings;
+  }
+
+  public void setTokenSettings(String tokenSettings) {
+    this.tokenSettings = tokenSettings;
+  }
 }

@@ -5,45 +5,44 @@ import dev.deepak.userservicetestfinal.models.Role;
 import dev.deepak.userservicetestfinal.models.User;
 import dev.deepak.userservicetestfinal.repositories.RoleRepository;
 import dev.deepak.userservicetestfinal.repositories.UserRepository;
-import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import org.springframework.stereotype.Service;
 
 @Service
 public class UserService {
-    private UserRepository userRepository;
-    private RoleRepository roleRepository;
+  private UserRepository userRepository;
+  private RoleRepository roleRepository;
 
-    public UserService(UserRepository userRepository, RoleRepository roleRepository) {
-        this.userRepository = userRepository;
-        this.roleRepository = roleRepository;
+  public UserService(UserRepository userRepository, RoleRepository roleRepository) {
+    this.userRepository = userRepository;
+    this.roleRepository = roleRepository;
+  }
+
+  public UserDto getUserDetails(Long userId) {
+    Optional<User> userOptional = userRepository.findById(userId);
+
+    if (userOptional.isEmpty()) {
+      return null;
     }
 
-    public UserDto getUserDetails(Long userId) {
-        Optional<User> userOptional = userRepository.findById(userId);
+    return UserDto.from(userOptional.get());
+  }
 
-        if (userOptional.isEmpty()) {
-            return null;
-        }
+  public UserDto setUserRoles(Long userId, List<Long> roleIds) {
+    Optional<User> userOptional = userRepository.findById(userId);
+    List<Role> roles = roleRepository.findAllByIdIn(roleIds);
 
-        return UserDto.from(userOptional.get());
+    if (userOptional.isEmpty()) {
+      return null;
     }
 
-    public UserDto setUserRoles(Long userId, List<Long> roleIds) {
-        Optional<User> userOptional = userRepository.findById(userId);
-        List<Role> roles = roleRepository.findAllByIdIn(roleIds);
+    User user = userOptional.get();
+    user.setRoles(Set.copyOf(roles));
 
-        if (userOptional.isEmpty()) {
-            return null;
-        }
+    User savedUser = userRepository.save(user);
 
-        User user = userOptional.get();
-        user.setRoles(Set.copyOf(roles));
-
-        User savedUser = userRepository.save(user);
-
-        return UserDto.from(savedUser);
-    }
+    return UserDto.from(savedUser);
+  }
 }
