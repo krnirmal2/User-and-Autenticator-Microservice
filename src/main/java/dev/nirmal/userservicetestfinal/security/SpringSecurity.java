@@ -9,10 +9,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @Configuration // NOTE 4: this is tell spring to it is a special class which initialise all the
 // required things for spring security
 public class SpringSecurity {
-  @Bean // automacaly this class intantiate in the caller class when it is call with out "new
   // BCryptPasswordEncoder()"
-
   // This is SingleTon class by default will spring initialise a single object
+  @Bean // automacaly this class intantiate in the caller class when it is call with out "new
   public BCryptPasswordEncoder bCryptPasswordEncoder() {
     return new BCryptPasswordEncoder();
   }

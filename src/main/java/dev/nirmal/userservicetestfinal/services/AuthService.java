@@ -1,19 +1,15 @@
 package dev.nirmal.userservicetestfinal.services;
 
 import dev.nirmal.userservicetestfinal.dtos.UserDto;
-import dev.nirmal.userservicetestfinal.models.Role;
 import dev.nirmal.userservicetestfinal.models.Session;
 import dev.nirmal.userservicetestfinal.models.SessionStatus;
 import dev.nirmal.userservicetestfinal.models.User;
 import dev.nirmal.userservicetestfinal.repositories.SessionRepository;
 import dev.nirmal.userservicetestfinal.repositories.UserRepository;
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jws;
-import io.jsonwebtoken.Jwts;
-import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Optional;
+import org.apache.commons.lang3.RandomStringUtils;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -60,7 +56,7 @@ public class AuthService {
     }
 
     // Generating the token if match
-    // String token = RandomStringUtils.randomAlphanumeric(30);
+    String token = RandomStringUtils.randomAlphanumeric(30);
 
     /*
             // Create a test key suitable for the desired HMAC-SHA algorithm:
@@ -99,18 +95,20 @@ public class AuthService {
     // create session fo
     Session session = new Session();
     session.setSessionStatus(SessionStatus.ACTIVE);
-    //    session.setToken(jws);
+    session.setToken(token);
+    //        session.setToken(jws);
     session.setUser(user);
     // session.setExpiringAt(//current time + 30 days);
     sessionRepository.save(session);
 
     UserDto userDto = new UserDto();
-    userDto.setEmail(email);
+    userDto.setEmail(email); // set in db
 
     // NOTE 7:
     // create the cookie and set the auth token of jws
     MultiValueMapAdapter<String, String> headers = new MultiValueMapAdapter<>(new HashMap<>());
-    //    headers.add(HttpHeaders.SET_COOKIE, "auth-token:" + jws);
+    //        headers.add(HttpHeaders.SET_COOKIE, "auth-token:" + jws);
+    headers.add(HttpHeaders.SET_COOKIE, "auth-token:" + token);
 
     // NOTE 8:
     // send the response dto
@@ -122,6 +120,8 @@ public class AuthService {
   }
 
   public ResponseEntity<Void> logout(String token, Long userId) {
+    // NOTE 11:
+    // we can find the no. of token for particular userId
     Optional<Session> sessionOptional = sessionRepository.findByTokenAndUser_Id(token, userId);
 
     if (sessionOptional.isEmpty()) {
@@ -154,33 +154,35 @@ public class AuthService {
   public SessionStatus validate(String token, Long userId) {
     Optional<Session> sessionOptional = sessionRepository.findByTokenAndUser_Id(token, userId);
 
+    // NOTE 10:
+    // validate the token made up of header + body + signature from theory
     if (sessionOptional.isEmpty()) {
       return null;
     }
 
-    Session session = sessionOptional.get();
+    /* Session session = sessionOptional.get();
 
-    if (!session.getSessionStatus().equals(SessionStatus.ACTIVE)) {
-      return SessionStatus.ENDED;
-    }
+        if (!session.getSessionStatus().equals(SessionStatus.ACTIVE)) {
+          return SessionStatus.ENDED;
+        }
 
-    Date currentTime = new Date();
-    if (session.getExpiringAt().before(currentTime)) {
-      return SessionStatus.ENDED;
-    }
+        Date currentTime = new Date();
+        if (session.getExpiringAt().before(currentTime)) {
+          return SessionStatus.ENDED;
+        }
 
-    // JWT Decoding.
-    Jws<Claims> jwsClaims = Jwts.parser().build().parseSignedClaims(token);
+        // JWT Decoding.
+        Jws<Claims> jwsClaims = Jwts.parser().build().parseSignedClaims(token);
 
-    // Map<String, Object> -> Payload object or JSON
-    String email = (String) jwsClaims.getPayload().get("email");
-    List<Role> roles = (List<Role>) jwsClaims.getPayload().get("roles");
-    Date createdAt = (Date) jwsClaims.getPayload().get("createdAt");
+        // Map<String, Object> -> Payload object or JSON
+        String email = (String) jwsClaims.getPayload().get("email");
+        List<Role> roles = (List<Role>) jwsClaims.getPayload().get("roles");
+        Date createdAt = (Date) jwsClaims.getPayload().get("createdAt");
 
-    //        if (restrictedEmails.contains(email)) {
-    //            //reject the token
-    //        }
-
+        //        if (restrictedEmails.contains(email)) {
+        //            //reject the token
+        //        }
+    */
     return SessionStatus.ACTIVE;
   }
 }

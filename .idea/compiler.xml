@@ -10,9 +10,13 @@
         <module name="userservicetestfinal" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="ProductService" target="17" />
+    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="ProductService" options="-parameters" />
       <module name="userservicetestfinal" options="-parameters" />
     </option>
   </component>
