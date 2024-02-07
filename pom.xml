@@ -47,6 +47,9 @@
             <artifactId>lombok</artifactId>
             <optional>true</optional>
         </dependency>
+        <!-- NOTE : Oauth dependency with spring boot to help the cookie and Csrf(CROSS
+         SITE REQUEST FORGERY attack understanding -->
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
