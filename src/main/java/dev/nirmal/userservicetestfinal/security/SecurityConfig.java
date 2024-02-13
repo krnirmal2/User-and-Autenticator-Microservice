@@ -18,9 +18,6 @@ import org.springframework.http.MediaType;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.oauth2.core.AuthorizationGrantType;
 import org.springframework.security.oauth2.core.ClientAuthenticationMethod;
@@ -33,7 +30,6 @@ import org.springframework.security.oauth2.server.authorization.config.annotatio
 import org.springframework.security.oauth2.server.authorization.config.annotation.web.configurers.OAuth2AuthorizationServerConfigurer;
 import org.springframework.security.oauth2.server.authorization.settings.AuthorizationServerSettings;
 import org.springframework.security.oauth2.server.authorization.settings.ClientSettings;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
 import org.springframework.security.web.util.matcher.MediaTypeRequestMatcher;
@@ -82,28 +78,54 @@ public class SecurityConfig {
     return http.build();
   }
 
-  @Bean
-  public UserDetailsService userDetailsService() {
-    //        NOTE 30 UP : we can modify this password acc. to oure need
-    // as we have use Bcrypt passward encoder and use Builder pattern here
-    UserDetails userDetails =
-        User.builder()
-            .username("user")
-            .password(bCryptPasswordEncoder.encode("password"))
-            .roles("USER")
-            .build();
+  /*
+   NOTE 35 UP: this is commented because
+        we want to ensure that our own user is getting called or not
+        as we implement our own CustomUserdetails class
 
-    return new InMemoryUserDetailsManager(userDetails);
-  }
 
+   @Bean
+    public UserDetailsService userDetailsService() {
+      //        NOTE 30 UP : we can modify this password acc. to oure need
+      // as we have use Bcrypt passward encoder and use Builder pattern here
+      UserDetails userDetails =
+          User.builder()
+              .username("user")
+              .password(bCryptPasswordEncoder.encode("password"))
+              .roles("USER")
+              .build();
+
+      return new InMemoryUserDetailsManager(userDetails);//NOTE : data will store in the RAM
+    }
+  */
   @Bean
-  public RegisteredClientRepository registeredClientRepository() {
+  public RegisteredClientRepository
+      registeredClientRepository() { // NOTE 33 UP: Login via different social or different
+    // with gmail, fb, linked in , if the client is register with particular third party server then
+    // need to some config
+    // that is given by this function
     RegisteredClient oidcClient =
         RegisteredClient.withId(UUID.randomUUID().toString())
-            .clientId("oidc-client")
-            .clientSecret("{noop}secret")
+            .clientId(
+                "productService") // NOTE 36 UP : here we will register our product service so that
+            // it
+            // could be authenticate by oauth when it will redirected
+            .clientSecret(
+                bCryptPasswordEncoder.encode(
+                    "productServiceSecret")) // NOTE 37 UP:  Client authentication failed:
+            // client_secret Error
+            // as due to we directly save as it is that's why this error came
+
+            // after that " org.springframework.security.oauth2.core.OAuth2AuthenticationException:
+            // null" error will come
             .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
             .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
+            .authorizationGrantType(
+                AuthorizationGrantType
+                    .CLIENT_CREDENTIALS) // NOTE 38 : add this as we used in post client credential
+            // and this error will gone "
+            // org.springframework.security.oauth2.core.OAuth2AuthenticationException: null"
+
             .authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)
             .redirectUri("http://127.0.0.1:8080/login/oauth2/code/oidc-client")
             .postLogoutRedirectUri("http://127.0.0.1:8080/")

@@ -17,7 +17,9 @@ src\main\java\dev\nirmal\userservicetestfinal\models\User.java 2024-02-06T14:26:
 src\main\java\dev\nirmal\userservicetestfinal\repositories\RoleRepository.java 2024-02-05T15:03:24.504366200Z
 src\main\java\dev\nirmal\userservicetestfinal\repositories\SessionRepository.java 2024-02-05T15:03:25.352196600Z
 src\main\java\dev\nirmal\userservicetestfinal\repositories\UserRepository.java 2024-02-05T15:03:24.759596300Z
-src\main\java\dev\nirmal\userservicetestfinal\security\SecurityConfig.java 2024-02-07T14:25:30.851463500Z
+src\main\java\dev\nirmal\userservicetestfinal\security\CustomSpringUserDetailsService.java 2024-02-13T18:36:05.403860700Z
+src\main\java\dev\nirmal\userservicetestfinal\security\CustomUserDetails.java 2024-02-13T18:36:05.542782600Z
+src\main\java\dev\nirmal\userservicetestfinal\security\SecurityConfig.java 2024-02-13T18:36:06.029503Z
 src\main\java\dev\nirmal\userservicetestfinal\security\SpringSecurity.java 2024-02-06T11:37:01.645571300Z
 src\main\java\dev\nirmal\userservicetestfinal\services\AuthService.java 2024-02-07T13:38:55.916368600Z
 src\main\java\dev\nirmal\userservicetestfinal\services\RoleService.java 2024-02-05T15:03:24.899586600Z

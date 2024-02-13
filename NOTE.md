@@ -33,3 +33,18 @@
              // NOTE 18:
 +        // what are token validation need to validate for a particular thing to access
       +    // that should be present here
+
+
+Class : Finishing Authentication Service
+      successfully generate the oauth token 
+      1. we did the over ride functionality of spring boot security of user and userDetails
+         2. we create the custom user and userDetails and from db we can call it insteed of 
+         3. in memory authorization 
+         4. When product service want to call userservice and if the token is not  
+         5. is not passed as input then Oauth2 is help to redirect the page to login one
+         6. and we can use product service
+         ![img_3.png](img_3.png)
+      
+![img_4.png](img_4.png)
+      
+![img_5.png](img_5.png)
