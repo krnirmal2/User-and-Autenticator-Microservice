@@ -128,6 +128,10 @@ public class SecurityConfig {
 
             .authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)
             .redirectUri("http://127.0.0.1:8080/login/oauth2/code/oidc-client")
+            .redirectUri(
+                "https://oauth.pstmn.io/v1/browser-callback") // NOTE 39 UP: this will be the
+            // redirect to the postman call
+            // redirect url
             .postLogoutRedirectUri("http://127.0.0.1:8080/")
             .scope(OidcScopes.OPENID)
             .scope(OidcScopes.PROFILE)

@@ -48,3 +48,6 @@ Class : Finishing Authentication Service
 ![img_4.png](img_4.png)
       
 ![img_5.png](img_5.png)
+
+"class : Auth Service Continued , here we used some pre implemented class to store the gene
+rate token by the postman to the db by modifying different service "

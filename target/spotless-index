@@ -19,7 +19,16 @@ src\main\java\dev\nirmal\userservicetestfinal\repositories\SessionRepository.jav
 src\main\java\dev\nirmal\userservicetestfinal\repositories\UserRepository.java 2024-02-05T15:03:24.759596300Z
 src\main\java\dev\nirmal\userservicetestfinal\security\CustomSpringUserDetailsService.java 2024-02-13T18:36:05.403860700Z
 src\main\java\dev\nirmal\userservicetestfinal\security\CustomUserDetails.java 2024-02-13T18:36:05.542782600Z
-src\main\java\dev\nirmal\userservicetestfinal\security\SecurityConfig.java 2024-02-13T18:36:06.029503Z
+src\main\java\dev\nirmal\userservicetestfinal\security\models\Authorization.java 2024-02-05T15:03:25.268242Z
+src\main\java\dev\nirmal\userservicetestfinal\security\models\AuthorizationConsent.java 2024-02-13T21:08:00.159442200Z
+src\main\java\dev\nirmal\userservicetestfinal\security\models\Client.java 2024-02-13T20:39:55.898106500Z
+src\main\java\dev\nirmal\userservicetestfinal\security\repositories\AuthorizationConsentRepository.java 2024-02-05T15:03:25.290230300Z
+src\main\java\dev\nirmal\userservicetestfinal\security\repositories\AuthorizationRepository.java 2024-02-05T15:03:24.430409400Z
+src\main\java\dev\nirmal\userservicetestfinal\security\repositories\ClientRepository.java 2024-02-05T15:03:24.970544400Z
+src\main\java\dev\nirmal\userservicetestfinal\security\repositories\JpaRegisteredClientRepository.java 2024-02-13T21:08:01.246196400Z
+src\main\java\dev\nirmal\userservicetestfinal\security\SecurityConfig.java 2024-02-13T21:08:01.945250100Z
+src\main\java\dev\nirmal\userservicetestfinal\security\services\JpaOAuth2AuthorizationConsentService.java 2024-02-05T15:03:25.015442700Z
+src\main\java\dev\nirmal\userservicetestfinal\security\services\JpaOAuth2AuthorizationService.java 2024-02-05T15:03:24.985460100Z
 src\main\java\dev\nirmal\userservicetestfinal\security\SpringSecurity.java 2024-02-06T11:37:01.645571300Z
 src\main\java\dev\nirmal\userservicetestfinal\services\AuthService.java 2024-02-07T13:38:55.916368600Z
 src\main\java\dev\nirmal\userservicetestfinal\services\RoleService.java 2024-02-05T15:03:24.899586600Z
