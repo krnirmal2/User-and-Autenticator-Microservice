@@ -15,6 +15,8 @@ public class UserService {
   private UserRepository userRepository;
   private RoleRepository roleRepository;
 
+  public UserService() {}
+
   public UserService(UserRepository userRepository, RoleRepository roleRepository) {
     this.userRepository = userRepository;
     this.roleRepository = roleRepository;

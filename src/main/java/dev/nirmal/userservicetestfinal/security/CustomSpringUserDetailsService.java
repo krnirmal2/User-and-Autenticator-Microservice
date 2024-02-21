@@ -5,7 +5,9 @@ import dev.nirmal.userservicetestfinal.repositories.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
 
+@Service // NOTE 47 UP : this @service help to resolve the error of
 public class CustomSpringUserDetailsService implements UserDetailsService {
   // NOTE 34 UP: this class use for create our own User
   // custom class to persist the userDetails that is provided by SpringSecurity framwork

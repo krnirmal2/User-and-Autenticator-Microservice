@@ -51,3 +51,12 @@ Class : Finishing Authentication Service
 
 "class : Auth Service Continued , here we used some pre implemented class to store the gene
 rate token by the postman to the db by modifying different service "
+
+
+class :  Auth Service Finish
+Error : No AuthenticationProvider found for org.springframework.security.authentication.UsernamePasswordAuthenticationToken
+I found the root cause.
+If you create your own UserDetailsService bean, there is no need to manually define a bean for AuthenticationProvider, cos by default a DaoAuthenticationProvider bean will be automatically created for us, which will automatically pick up your defined UserDetailsService bean.
+But if you define 2 or more UserDetailsService beans, then u need to define your own Authenticationprovider. I made a mistake, as i don't realize I have another class that implements UserDetailsService interface and annotated with @service , which create a second UserDetailsService bean.
+
+![img_6.png](img_6.png)

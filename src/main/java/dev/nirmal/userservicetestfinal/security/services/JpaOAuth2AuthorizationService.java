@@ -1,17 +1,14 @@
 package dev.nirmal.userservicetestfinal.security.services;
 
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.Module;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import dev.nirmal.userservicetestfinal.security.models.Authorization;
 import dev.nirmal.userservicetestfinal.security.repositories.AuthorizationRepository;
 import java.time.Instant;
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.function.Consumer;
 import org.springframework.dao.DataRetrievalFailureException;
-import org.springframework.security.jackson2.SecurityJackson2Modules;
 import org.springframework.security.oauth2.core.AuthorizationGrantType;
 import org.springframework.security.oauth2.core.OAuth2AccessToken;
 import org.springframework.security.oauth2.core.OAuth2DeviceCode;
@@ -27,7 +24,6 @@ import org.springframework.security.oauth2.server.authorization.OAuth2Authorizat
 import org.springframework.security.oauth2.server.authorization.OAuth2TokenType;
 import org.springframework.security.oauth2.server.authorization.client.RegisteredClient;
 import org.springframework.security.oauth2.server.authorization.client.RegisteredClientRepository;
-import org.springframework.security.oauth2.server.authorization.jackson2.OAuth2AuthorizationServerJackson2Module;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
@@ -46,10 +42,16 @@ public class JpaOAuth2AuthorizationService implements OAuth2AuthorizationService
     this.authorizationRepository = authorizationRepository;
     this.registeredClientRepository = registeredClientRepository;
 
-    ClassLoader classLoader = JpaOAuth2AuthorizationService.class.getClassLoader();
-    List<Module> securityModules = SecurityJackson2Modules.getModules(classLoader);
-    this.objectMapper.registerModules(securityModules);
-    this.objectMapper.registerModule(new OAuth2AuthorizationServerJackson2Module());
+    /* NOTE 48 UP : comment for getting below error in log
+         java.lang.ClassNotFoundException: org.springframework.security.cas.jackson2.CasJackson2Module
+          at java.base/jdk.internal.loader.BuiltinClassLoader.loadClass(BuiltinClassLoader.java:641) ~[na:na]
+          at java.base/jdk.internal.loader.ClassLoaders$AppClassLoader.loadClass(ClassLoaders.java:188) ~[na:na]
+
+     ClassLoader classLoader = JpaOAuth2AuthorizationService.class.getClassLoader();
+      List<Module> securityModules = SecurityJackson2Modules.getModules(classLoader);
+      this.objectMapper.registerModules(securityModules);
+      this.objectMapper.registerModule(new OAuth2AuthorizationServerJackson2Module());
+    */
   }
 
   @Override

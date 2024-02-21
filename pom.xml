@@ -85,6 +85,22 @@
             <version>0.12.3</version>
             <scope>runtime</scope>
         </dependency>
+       <!-- Handle the non mapped issue
+        This application has no explicit mapping for /error, so you are seeing this as a fallback. Wed Feb 14 21:35:30 IST
+        2024 There was an unexpected error (type=Not Found, status=404). No message available
+        -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+<!-- NOTE 52 UP : Provide an MVC template for /error
+As the MVC views have access to the exceptions and error messages, it is easier to define a template and let the templating engine do the rendering for you. To achieve this,
+-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
+        </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-oauth2-authorization-server</artifactId>
@@ -115,7 +131,7 @@
 
 
 
-            <plugin>
+            <!--<plugin>
                 <groupId>com.diffplug.spotless</groupId>
                 <artifactId>spotless-maven-plugin</artifactId>
                 <version>2.41.1</version>
@@ -127,15 +143,15 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <!-- Add formatting rules here -->
+                    &lt;!&ndash; Add formatting rules here &ndash;&gt;
                     <java>
-                        <!-- Example: enforce Google Java Code Style -->
+                        &lt;!&ndash; Example: enforce Google Java Code Style &ndash;&gt;
                         <googleJavaFormat>
                             <version>1.11.0</version>
                         </googleJavaFormat>
                     </java>
                 </configuration>
-            </plugin>
+            </plugin>-->
 
 
 
