@@ -18,8 +18,14 @@ public class UserController {
 
   @GetMapping("/{id}")
   public ResponseEntity<UserDto> getUserDetails(@PathVariable("id") Long userId) {
-    UserDto userDto = userService.getUserDetails(userId);
+/*
+  NOTE: 123 UP :
+    for call comming from the Product service this code hass been commented
 
+    UserDto userDto = userService.getUserDetails(userId);
+ */
+    System.out.println("Call reached from product service call");
+    UserDto userDto = new UserDto();
     return new ResponseEntity<>(userDto, HttpStatus.OK);
   }
 
