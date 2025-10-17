@@ -10,6 +10,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class UserDto {
+  // no password here as we already have token which we will validate
   private String email;
   private Set<Role> roles = new HashSet<>();
 

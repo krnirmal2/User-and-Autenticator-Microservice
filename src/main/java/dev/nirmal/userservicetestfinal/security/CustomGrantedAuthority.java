@@ -12,10 +12,10 @@ import org.springframework.security.core.GrantedAuthority;
 @Setter
 @JsonDeserialize(as = CustomGrantedAuthority.class)
 @NoArgsConstructor
-public class CustomGrantedAuthority implements GrantedAuthority {
+public class CustomGrantedAuthority implements GrantedAuthority { // for Role base access control access
   private Role role;
 
-  // NOTE 51 UP : this class is used to implement ganted authority
+  // NOTE 51 UP : this class is used to implement Granted  authority
   // for role of the user should be come in the payload of the token
   // and we customise the role
   public CustomGrantedAuthority(Role role) {

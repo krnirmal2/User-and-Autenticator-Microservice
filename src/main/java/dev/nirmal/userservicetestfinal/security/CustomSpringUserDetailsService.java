@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 @Service // NOTE 47 UP : this @service help to resolve the error of
 public class CustomSpringUserDetailsService implements UserDetailsService {
   // NOTE 34 UP: this class use for create our own User
-  // custom class to persist the userDetails that is provided by SpringSecurity framwork
+  // custom class to persist the userDetails that is provided by SpringSecurity framwork in SecurityConfig
   // and we will use our
 
   UserRepository userRepository;
@@ -26,8 +26,8 @@ public class CustomSpringUserDetailsService implements UserDetailsService {
     if (optionalUser.isEmpty()) {
       throw new UsernameNotFoundException("user with the given username not found");
     }
-    User user = optionalUser.get();
+    User user = optionalUser.get();// details of user from own db
 
-    return new CustomUserDetails(user);
+    return new CustomUserDetails(user); // modified the UserDetails interface and override for own
   }
 }

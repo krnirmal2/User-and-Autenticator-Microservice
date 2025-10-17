@@ -8,7 +8,7 @@
         <version>3.2.2</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>dev.deepak</groupId>
+    <groupId>dev.nirmal</groupId>
     <artifactId>userservicetestfinal</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>userservicetestfinal</name>
@@ -118,6 +118,13 @@ As the MVC views have access to the exceptions and error messages, it is easier 
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
             <version>4.1.0</version>
+        </dependency>
+
+        <!-- Swagger/OpenAPI documentation -->
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+            <version>2.3.0</version>
         </dependency>
     </dependencies>
 

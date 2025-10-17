@@ -112,7 +112,7 @@ public class AuthService {
     session.setToken(jws);
     session.setUser(user);
     // session.setExpiringAt(//current time + 30 days);//TODO : HOME WORK
-    sessionRepository.save(session);
+    sessionRepository.save(session); // save the session details to session repository
 
     UserDto userDto = new UserDto();
     userDto.setEmail(email); // set in db
@@ -121,7 +121,7 @@ public class AuthService {
     // create the cookie and set the auth token of jws
     MultiValueMapAdapter<String, String> headers = new MultiValueMapAdapter<>(new HashMap<>());
     headers.add(HttpHeaders.SET_COOKIE, "auth-token:" + jws);
-    //    headers.add(HttpHeaders.SET_COOKIE, "auth-token:" + token);
+//        headers.add(HttpHeaders.SET_COOKIE, "auth-token:" + token);
 
     // NOTE 8:
     // send the response dto
@@ -202,6 +202,7 @@ public class AuthService {
       return SessionStatus.ENDED;
     }
 
+    //Decoding jwt from claims and find email, roles created at etc
     // if we need to extract the key value pair that is inside the token payload then we can
     // parse the token and find the correponding value like email, roles, date time etc
     Jws<Claims> jwsClaims = Jwts.parser().build().parseSignedClaims(token);

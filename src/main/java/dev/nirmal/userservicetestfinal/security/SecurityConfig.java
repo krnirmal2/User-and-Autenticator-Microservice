@@ -45,12 +45,14 @@ import org.springframework.security.web.util.matcher.MediaTypeRequestMatcher;
 @EnableWebSecurity
 public class SecurityConfig {
   // NOTE 29 UP:
-  //
+  //this is the intial config for building OAUTH
   @Autowired BCryptPasswordEncoder bCryptPasswordEncoder;
 
   @Bean
   @Order(1)
-  public SecurityFilterChain authorizationServerSecurityFilterChain(HttpSecurity http)
+  public SecurityFilterChain authorizationServerSecurityFilterChain(HttpSecurity http) // this httpsecurity by default
+          // give access to all the any other api but we have to restrict them
+          //SecurityFilterChain will filter all those api which are not necessary
       throws Exception { // NOTE : to allow the api we or restrict we can handle here
     OAuth2AuthorizationServerConfiguration.applyDefaultSecurity(http);
     http.getConfigurer(OAuth2AuthorizationServerConfigurer.class)
@@ -72,7 +74,7 @@ public class SecurityConfig {
   }
 
 /*  @Bean
-  @Order(2)
+  @Order(2) // by defualt this will redirect to default login page
   public SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
     http.authorizeHttpRequests((authorize) -> authorize.anyRequest().authenticated())
         // Form login handles the redirect to the login page from the
@@ -84,17 +86,30 @@ public class SecurityConfig {
 
     return http.build();
   }*/
+//@Bean
+//@Order(2)
+//public SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http)
+//        throws Exception {
+//  http
+//          .authorizeHttpRequests((authorize) -> authorize
+//                  .anyRequest().permitAll()
+//          )
+//          // Form login handles the redirect to the login page from the
+//          // authorization server filter chain
+//          .formLogin(Customizer.withDefaults());
+//
+//  return http.build();
+//}
 @Bean
 @Order(2)
-public SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http)
-        throws Exception {
+public SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
   http
           .authorizeHttpRequests((authorize) -> authorize
-                  .anyRequest().permitAll()
+                  .requestMatchers("/auth/**").permitAll()  // ✅ allow auth endpoints
+                  .anyRequest().authenticated()
           )
-          // Form login handles the redirect to the login page from the
-          // authorization server filter chain
-          .formLogin(Customizer.withDefaults());
+          .csrf(csrf -> csrf.disable()) // ✅ new lambda-style CSRF disable
+          .formLogin(Customizer.withDefaults()); // optional
 
   return http.build();
 }
@@ -105,21 +120,24 @@ public SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http)
         we want to ensure that our own user is getting called or not
         as we implement our own CustomUserdetails class
 
-
+ // this is default user and user password for testing the code
    @Bean
     public UserDetailsService userDetailsService() {
       //        NOTE 30 UP : we can modify this password acc. to oure need
-      // as we have use Bcrypt passward encoder and use Builder pattern here
+      // as we have use Bcrypt passward encoder and use Builder desingn pattern here
       UserDetails userDetails =
           User.builder()
               .username("user")
-              .password(bCryptPasswordEncoder.encode("password"))
+              .password(bCryptPasswordEncoder.encode("password")) // instead of defualt password we used becrypt encoderb
               .roles("USER")
               .build();
 
-      return new InMemoryUserDetailsManager(userDetails);//NOTE : data will store in the RAM
+      return new InMemoryUserDetailsManager(userDetails);//NOTE : data will store in the RAM which is map
     }
   */
+
+  // this is will handle to login using google , fb and other third party
+  // this is in Authorisation server which of gmail, fb which store the registerd client who can use to login via this server
   @Bean
   public RegisteredClientRepository
       registeredClientRepository() { // NOTE 33 UP: Login via different social or different
@@ -144,7 +162,8 @@ public SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http)
             .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
             .authorizationGrantType(
                 AuthorizationGrantType
-                    .CLIENT_CREDENTIALS) // NOTE 38 : add this as we used in post client credential
+                    .CLIENT_CREDENTIALS) // NOTE 38 : add this as we used in post client credential for client for authorised them selve using
+                // using clientId and client password
             // and this error will gone "
             // org.springframework.security.oauth2.core.OAuth2AuthenticationException: null"
 
@@ -214,7 +233,7 @@ public SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http)
     }
   */
 
-  // NOTE 50 UP :
+  // NOTE 50 UP : RBAC
   // customise the token and add role in the payload
   @Bean
   public OAuth2TokenCustomizer<JwtEncodingContext> jwtTokenCustomizer() {
@@ -231,7 +250,7 @@ public SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http)
                           .collect(
                               Collectors.collectingAndThen(
                                   Collectors.toSet(), Collections::unmodifiableSet));
-                  claims.put("roles", roles);
+                  claims.put("roles", roles); // put roles in claim (payload of token)
                 });
       }
     };

@@ -5,7 +5,7 @@ import java.time.Instant;
 
 @Entity
 @Table(name = "`authorization`")
-public class Authorization {
+public class Authorization { // this are all from authorisation not created by own , just copy paste
   @Id @Column private String id;
   private String registeredClientId;
   private String principalName;
